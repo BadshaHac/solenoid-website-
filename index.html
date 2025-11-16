@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Solenoid Security Pvt Ltd - 1 Month Online Internship Program for Web Developers and Cyber Security Students." />
 
-  <!-- ADD YOUR LOGO AS TAB ICON -->
-  <link rel="icon" type="image/png" href="logo.png" />
-
   <style>
     :root {
       --bg: #020617;
@@ -26,7 +23,11 @@
       --transition-fast: 180ms ease-out;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -35,10 +36,15 @@
                   var(--bg);
       color: var(--text);
       line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a { color: inherit; text-decoration: none; }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
+    /* HEADER + NAVBAR */
     header {
       position: sticky;
       top: 0;
@@ -58,27 +64,40 @@
       gap: 0.75rem;
     }
 
-    .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
 
-    /* **** USE YOUR LOGO HERE **** */
+    /* LOGO (shield + S) */
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
     .logo-icon {
-      width: 45px;
-      height: 45px;
+      width: 40px;
+      height: 40px;
       border-radius: 999px;
+      background: radial-gradient(circle at 30% 20%, #bbf7d0, #22c55e 40%, #0f172a 80%);
+      box-shadow: 0 0 20px rgba(34,197,94,0.7);
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
       overflow: hidden;
     }
 
-    .logo-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+    .logo-icon svg {
+      width: 26px;
+      height: 26px;
+      opacity: 0.96;
     }
 
     .logo-text-main {
-      font-size: 1rem;
+      font-size: 0.98rem;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -102,10 +121,30 @@
       position: relative;
       color: #cbd5f5;
       opacity: 0.8;
-      transition: 0.3s;
+      transition: opacity var(--transition-fast);
     }
 
-    nav a:hover { opacity: 1; }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -0.3rem;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transform-origin: center;
+      transform: scaleX(0);
+      transition: transform 160ms ease-out;
+    }
+
+    nav a:hover {
+      opacity: 1;
+    }
+
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), #16a34a);
@@ -115,74 +154,449 @@
       font-weight: 600;
       color: #020617;
       display: inline-flex;
+      align-items: center;
       gap: 0.4rem;
+      border: none;
+      cursor: pointer;
       box-shadow: 0 12px 32px rgba(34,197,94,0.6);
-      transition: 0.3s;
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+      white-space: nowrap;
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 38px rgba(34,197,94,0.8);
+      transform: translateY(-1px) translateZ(0);
+      box-shadow: 0 18px 42px rgba(34,197,94,0.8);
+      filter: brightness(1.05);
     }
 
-    main { max-width: 1120px; margin: 0 auto; padding: 2rem 1rem; }
+    .btn-outline {
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      padding: 0.45rem 1.1rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      background: rgba(15,23,42,0.75);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+    }
 
-    /* HERO SECTION */
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: #e5e7eb;
+      background: rgba(15,23,42,0.96);
+    }
+
+    /* LAYOUT */
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 1.8rem 1rem 3.5rem;
+    }
+
+    section {
+      padding: 2.8rem 0 0;
+    }
+
+    section h2 {
+      font-size: 1.55rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      max-width: 32rem;
+    }
+
+    /* HERO */
     .hero {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2.3rem;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2.2rem;
       align-items: center;
       padding-top: 2.6rem;
     }
 
+    .hero-pre {
+      font-size: 0.76rem;
+      letter-spacing: 0.22em;
+      color: #a5b4fc;
+      text-transform: uppercase;
+      margin-bottom: 0.7rem;
+    }
+
     .hero h1 {
       font-size: 2.5rem;
-      line-height: 1.2;
+      line-height: 1.14;
+      margin-bottom: 0.6rem;
     }
 
     .hero h1 span {
       background: linear-gradient(135deg, #4ade80, #22d3ee, #a855f7);
       -webkit-background-clip: text;
+      background-clip: text;
       color: transparent;
     }
 
-    .hero-sub { color: var(--muted); }
-
-    /* HERO VISUAL BOX */
-    .hero-visual {
-      height: 260px;
-      border-radius: 20px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: linear-gradient(135deg, rgba(0,255,180,0.12), rgba(0,128,255,0.10));
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 18px 46px rgba(0,0,0,0.6);
+    .hero-sub {
+      font-size: 0.97rem;
+      color: var(--muted);
+      max-width: 32rem;
+      margin-bottom: 1.2rem;
     }
 
-    /* CARD STYLES */
-    .grid { display: grid; gap: 1.3rem; }
-    .grid-3 { grid-template-columns: repeat(3,1fr); }
-    .grid-2 { grid-template-columns: repeat(2,1fr); }
+    .hero-tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-size: 0.82rem;
+      color: #a5b4fc;
+      margin-bottom: 1.15rem;
+    }
+
+    .hero-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--primary);
+      box-shadow: 0 0 16px rgba(34,197,94,0.95);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .hero-meta span::before {
+      content: "•";
+      margin-right: 0.3rem;
+      opacity: 0.65;
+    }
+
+    /* HERO VISUAL CARD */
+    .hero-visual {
+      position: relative;
+      height: 260px;
+      border-radius: var(--radius-xl);
+      background:
+        radial-gradient(circle at 0 0, rgba(56,189,248,0.18), transparent 58%),
+        radial-gradient(circle at 100% 0, rgba(34,197,94,0.18), transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(79,70,229,0.25), transparent 60%),
+        rgba(15,23,42,0.98);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 1.15rem;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.35;
+      background-image:
+        linear-gradient(rgba(148,163,184,0.11) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148,163,184,0.11) 1px, transparent 1px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .hero-pill-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.28rem 0.8rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(15,23,42,0.98), rgba(15,23,42,0.6));
+      border: 1px solid rgba(148,163,184,0.6);
+      font-size: 0.78rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-pill-main span {
+      font-size: 0.9rem;
+    }
+
+    .hero-floating {
+      position: absolute;
+      right: 1rem;
+      top: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-end;
+      z-index: 1;
+    }
+
+    .hero-chip {
+      font-size: 0.76rem;
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.95);
+      border: 1px solid rgba(148,163,184,0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-chip span {
+      font-size: 0.86rem;
+    }
+
+    .hero-timeline {
+      position: absolute;
+      left: 1.05rem;
+      bottom: 1rem;
+      border-radius: 1rem;
+      background: rgba(15,23,42,0.98);
+      border: 1px solid rgba(52,211,153,0.7);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.76rem;
+      color: var(--muted);
+      z-index: 1;
+      min-width: 180px;
+    }
+
+    .hero-timeline-title {
+      font-size: 0.74rem;
+      color: #a5b4fc;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-timeline-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-timeline-main strong {
+      font-size: 0.96rem;
+      color: var(--text);
+    }
+
+    .hero-timeline-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.16rem 0.55rem;
+      border-radius: 999px;
+      background: rgba(21,128,61,0.2);
+      color: #bbf7d0;
+    }
+
+    /* SECTIONS COMMON */
+    .grid {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
     .card {
-      background: rgba(15,23,42,0.96);
-      padding: 1.2rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,0.08);
-      box-shadow: 0 18px 40px rgba(15,23,42,0.9);
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at 0 0, rgba(52,211,153,0.12), transparent 60%),
+        rgba(15,23,42,0.98);
+      border: 1px solid var(--border-soft);
+      padding: 1.1rem 1.1rem 1.05rem;
+      box-shadow: var(--shadow-soft);
     }
 
-    .card h3 { margin-bottom: 0.5rem; }
-    .list li { margin-bottom: 0.3rem; color: var(--muted); }
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 0.45rem;
+    }
 
-    /* APPLY SECTION */
-    .apply-text { color: var(--muted); max-width: 32rem; }
+    .card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 0.55rem;
+    }
 
-    /* MOBILE RESPONSIVE */
+    .list {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding-left: 1.1rem;
+    }
+
+    .list li {
+      margin-bottom: 0.3rem;
+    }
+
+    .badge-row, .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 0.4rem;
+    }
+
+    .badge {
+      font-size: 0.76rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.7);
+      background: rgba(15,23,42,0.9);
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      padding: 0.26rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(129,140,248,0.9);
+      background: rgba(30,64,175,0.5);
+    }
+
+    /* APPLY CALL-TO-ACTION */
+    .apply-section {
+      text-align: left;
+    }
+
+    .apply-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 34rem;
+      margin-bottom: 1rem;
+    }
+
+    .apply-note {
+      font-size: 0.78rem;
+      color: #6b7280;
+      margin-top: 0.6rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(55,65,81,0.9);
+      margin-top: 3rem;
+      padding: 1.2rem 1rem 1.7rem;
+      font-size: 0.78rem;
+      color: #6b7280;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      max-width: 1120px;
+      margin-inline: auto;
+    }
+
+    footer a {
+      color: #9ca3af;
+      text-decoration: underline;
+      text-decoration-style: dotted;
+    }
+
+    /* ANIMATIONS */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 420ms ease-out, transform 420ms ease-out;
+    }
+
+    .fade-in.delay-1 { transition-delay: 60ms; }
+    .fade-in.delay-2 { transition-delay: 140ms; }
+    .fade-in.delay-3 { transition-delay: 220ms; }
+    .fade-in.delay-4 { transition-delay: 300ms; }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-visual {
+      opacity: 0;
+      transform: translateY(16px) scale(0.99);
+      transition: opacity 500ms ease-out, transform 500ms ease-out;
+    }
+
+    .hero-visual.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    .hero-chip {
+      animation: float 4.3s ease-in-out infinite;
+    }
+    .hero-chip:nth-child(2) { animation-delay: 0.7s; }
+    .hero-chip:nth-child(3) { animation-delay: 1.4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .hero-grid {
+      animation: grid-glow 8s linear infinite;
+    }
+
+    @keyframes grid-glow {
+      0% { opacity: 0.2; }
+      50% { opacity: 0.45; }
+      100% { opacity: 0.2; }
+    }
+
+    /* RESPONSIVE */
     @media (max-width: 900px) {
-      nav ul { display: none; }
-      .hero { grid-template-columns: 1fr; }
+      nav ul {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .grid-3 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        padding-inline: 0.9rem;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero-sub {
+        font-size: 0.94rem;
+      }
+
+      footer {
+        padding-inline: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -192,160 +606,320 @@
   <header>
     <div class="nav">
       <div class="nav-left">
-        <div class="logo-icon">
-          <!-- YOUR LOGO -->
-          <img src="logo.png" alt="Solenoid Security Pvt Ltd Logo">
-        </div>
-
-        <div>
-          <div class="logo-text-main">Solenoid Security Pvt Ltd</div>
-          <div class="logo-text-sub">Web & Cyber Security Internship</div>
+        <div class="logo-wrap">
+          <div class="logo-icon">
+            <!-- Simple shield + S logo -->
+            <svg viewBox="0 0 48 48" aria-hidden="true">
+              <defs>
+                <linearGradient id="shieldGradient" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ecfeff" />
+                  <stop offset="45%" stop-color="#bbf7d0" />
+                  <stop offset="100%" stop-color="#22c55e" />
+                </linearGradient>
+              </defs>
+              <path d="M24 4L10 9v11.5C10 29.8 15.2 37.2 24 40c8.8-2.8 14-10.2 14-19.5V9L24 4z"
+                    fill="url(#shieldGradient)" opacity="0.96" />
+              <path d="M29 17c0-3.3-2.7-6-7-6-2.7 0-5 .9-6.5 2.2-.4.3-.5.9-.1 1.3l1.5 1.5c.3.3.8.3 1.2.1.8-.5 1.9-1.1 3.4-1.1 1.8 0 3 .9 3 2.1 0 1.3-1 2-3.2 2H19c-.6 0-1 .4-1 1v2.4c0 .6.4 1 1 1h2.1c2.7 0 3.9.9 3.9 2.3 0 1.2-1.1 2.2-3.2 2.2-1.6 0-2.8-.5-3.6-.9-.4-.2-.8-.1-1.1.2l-1.6 1.6c-.4.4-.4 1.1.1 1.4 1.4 1.1 3.4 1.9 6.2 1.9 4.3 0 7.5-2.3 7.5-6.2 0-2.4-1.4-4.2-3.7-5 1.8-.8 3.2-2.3 3.2-4.6z"
+                    fill="#022c22" opacity="0.95" />
+            </svg>
+          </div>
+          <div>
+            <div class="logo-text-main">Solenoid Security Pvt Ltd</div>
+            <div class="logo-text-sub">Web & Cyber Security Internship</div>
+          </div>
         </div>
       </div>
 
       <nav>
         <ul>
           <li><a href="#about">About</a></li>
-          <li><a href="#tracks">Internships</a></li>
+          <li><a href="#tracks">Internship Tracks</a></li>
           <li><a href="#eligibility">Eligibility</a></li>
           <li><a href="#apply">Apply</a></li>
         </ul>
       </nav>
 
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLScdK8F6QXVZiRWk2ktCISvEvT0FxqmSBiPc-rog46JGCNLfdg/viewform"
-         class="btn-primary" target="_blank">
-        Apply Now 🚀
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLScdK8F6QXVZiRWk2ktCISvEvT0FxqmSBiPc-rog46JGCNLfdg/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary"
+      >
+        Apply Now
+        <span>🚀</span>
       </a>
     </div>
   </header>
 
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="fade-in delay-1">
+        <div class="hero-pre">1-Month Online Internship • Remote</div>
+        <h1>
+          Start your<br />
+          <span>Web & Cyber Security</span><br />
+          journey with industry focus.
+        </h1>
+        <p class="hero-sub">
+          Solenoid Security Pvt Ltd offers a focused 1-month internship designed for school and college
+          students interested in Website Development and Cyber Security. Learn using structured tasks,
+          simple explanations, and real-world style workflows.
+        </p>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <h1>Start Your <span>Web & Cyber Security</span> Career Today</h1>
-      <p class="hero-sub">
-        1-Month Online Internship Program for School & College Students.
+        <div class="hero-tagline">
+          <span class="hero-dot"></span>
+          Limited seats • Project tasks • Certificate on completion
+        </div>
+
+        <div class="hero-actions">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLScdK8F6QXVZiRWk2ktCISvEvT0FxqmSBiPc-rog46JGCNLfdg/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+          >
+            Apply Now – Takes 2 Minutes
+          </a>
+          <a href="#tracks" class="btn-outline">
+            View Internship Details
+          </a>
+        </div>
+
+        <div class="hero-meta">
+          <span>Duration: 1 Month</span>
+          <span>Mode: 100% Online</span>
+          <span>Open for: School & College Students</span>
+        </div>
+      </div>
+
+      <div class="hero-visual" id="heroVisual">
+        <div class="hero-grid"></div>
+
+        <div class="hero-pill-main">
+          <span>⚡</span>
+          Solenoid Security Internship Hub
+        </div>
+
+        <div class="hero-floating">
+          <div class="hero-chip"><span>🖥</span> Website Developer Track</div>
+          <div class="hero-chip"><span>🛡</span> Cyber Security Track</div>
+          <div class="hero-chip"><span>🎓</span> School & College Friendly</div>
+        </div>
+
+        <div class="hero-timeline">
+          <div class="hero-timeline-title">Cohort Overview</div>
+          <div class="hero-timeline-main">
+            <strong>1-Month Sprint</strong>
+            <div class="hero-timeline-pill">
+              <span>Project-Based</span>
+            </div>
+          </div>
+          <div>
+            ✓ Guided learning tasks<br />
+            ✓ Weekly progress reviews (self-reporting)<br />
+            ✓ Internship certificate after completion
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="fade-in delay-1">
+      <h2>About Solenoid Security Pvt Ltd</h2>
+      <p class="section-subtitle">
+        We focus on giving students a practical starting point in technology by combining
+        website development and cyber security fundamentals in a simple, structured way.
       </p>
 
-      <a class="btn-primary" target="_blank"
-         href="https://docs.google.com/forms/d/e/1FAIpQLScdK8F6QXVZiRWk2ktCISvEvT0FxqmSBiPc-rog46JGCNLfdg/viewform">
-        Apply Now
+      <div class="grid grid-3">
+        <div class="card fade-in delay-1">
+          <h3>What you get</h3>
+          <p>
+            During the 1-month internship, you complete practical tasks that simulate
+            how real projects are done in the industry.
+          </p>
+          <ul class="list">
+            <li>Clear weekly learning goals</li>
+            <li>Small, achievable assignments</li>
+            <li>Chance to build portfolio-ready work</li>
+            <li>Internship completion certificate</li>
+          </ul>
+        </div>
+
+        <div class="card fade-in delay-2">
+          <h3>Who can apply?</h3>
+          <p>
+            The internship is designed for beginners and motivated students who want to
+            start learning, not just collect certificates.
+          </p>
+          <ul class="list">
+            <li>School students (8th–12th)</li>
+            <li>Diploma, UG, PG students</li>
+            <li>Any stream with interest in tech</li>
+            <li>No deep experience required</li>
+          </ul>
+        </div>
+
+        <div class="card fade-in delay-3">
+          <h3>How it works</h3>
+          <p>
+            Simple, transparent structure so you always know what to do next.
+          </p>
+          <ul class="list">
+            <li>Choose your track in the form</li>
+            <li>Submit your details accurately</li>
+            <li>Shortlisting & onboarding email (if selected)</li>
+            <li>Start your 1-month learning journey</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRACKS -->
+    <section id="tracks" class="fade-in delay-1">
+      <h2>Internship Tracks</h2>
+      <p class="section-subtitle">
+        Select the internship track that matches your interest. You can mention your skills
+        and learning goals directly in the application form.
+      </p>
+
+      <div class="grid grid-3">
+        <div class="card fade-in delay-1">
+          <h3>Website Development</h3>
+          <p>
+            Learn how websites are structured, styled, and made responsive for mobile and desktop.
+          </p>
+          <div class="badge-row">
+            <span class="badge">HTML</span>
+            <span class="badge">CSS</span>
+            <span class="badge">JavaScript (Basics)</span>
+            <span class="badge">Responsive Layouts</span>
+          </div>
+          <div class="pill-row">
+            <div class="pill">Landing Pages</div>
+            <div class="pill">Portfolio Style Pages</div>
+          </div>
+        </div>
+
+        <div class="card fade-in delay-2">
+          <h3>Cyber Security</h3>
+          <p>
+            Get an introduction to security concepts, tools, and safe practices with guided tasks.
+          </p>
+          <div class="badge-row">
+            <span class="badge">Networking Basics</span>
+            <span class="badge">Linux Basics</span>
+            <span class="badge">Common Vulnerabilities</span>
+            <span class="badge">Tool Overview</span>
+          </div>
+          <div class="pill-row">
+            <div class="pill">Cyber Hygiene</div>
+            <div class="pill">Hands-on Labs (where possible)</div>
+          </div>
+        </div>
+
+        <div class="card fade-in delay-3">
+          <h3>Beginner Friendly Approach</h3>
+          <p>
+            No prior experience is mandatory. We value curiosity, consistency, and honesty in task completion.
+          </p>
+          <ul class="list">
+            <li>Step-by-step progress flow</li>
+            <li>Tasks aligned with student level</li>
+            <li>Encouragement to self-learn</li>
+            <li>Focus on understanding, not just completion</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ELIGIBILITY -->
+    <section id="eligibility" class="fade-in delay-1">
+      <h2>Eligibility & Requirements</h2>
+      <p class="section-subtitle">
+        Simple and clear requirements so any motivated student can participate and learn effectively.
+      </p>
+
+      <div class="grid grid-2">
+        <div class="card fade-in delay-1">
+          <h3>Basic Requirements</h3>
+          <ul class="list">
+            <li>School or college student from any stream</li>
+            <li>Basic comfort with using a computer</li>
+            <li>Access to a laptop/desktop and internet</li>
+            <li>Willingness to complete tasks independently</li>
+          </ul>
+        </div>
+
+        <div class="card fade-in delay-2">
+          <h3>Internship Structure</h3>
+          <ul class="list">
+            <li>Duration: <strong>1 Month</strong></li>
+            <li>Mode: <strong>100% Online</strong></li>
+            <li>Recommended: 1–2 hours per day</li>
+            <li>Self-paced tasks with clear expectations</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLY -->
+    <section id="apply" class="apply-section fade-in delay-1">
+      <h2>Apply Now</h2>
+      <p class="section-subtitle">
+        Use the official Google Form to share your details and select your preferred internship track.
+      </p>
+
+      <p class="apply-text">
+        Please fill all details accurately, including your full name, email, phone number, education
+        details, and skill level. This helps us understand your background and match you to the
+        Website Development or Cyber Security track more effectively.
+      </p>
+
+      <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLScdK8F6QXVZiRWk2ktCISvEvT0FxqmSBiPc-rog46JGCNLfdg/viewform"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-primary"
+      >
+        Open Internship Application Form
       </a>
-    </div>
 
-    <div class="hero-visual"></div>
-  </section>
-
-
-  <!-- ABOUT -->
-  <section id="about">
-    <h2>About Solenoid Security Pvt Ltd</h2>
-    <p class="section-subtitle">
-      Our mission is to train beginner students through structured, easy, practical tasks.
-    </p>
-
-    <div class="grid grid-3">
-      <div class="card">
-        <h3>What You Get</h3>
-        <ul class="list">
-          <li>Weekly tasks</li>
-          <li>Simple guided learning</li>
-          <li>Completion certificate</li>
-        </ul>
+      <div class="apply-note">
+        If the form link does not open, please copy and paste it directly into your browser.
       </div>
+    </section>
+  </main>
 
-      <div class="card">
-        <h3>Who Can Apply?</h3>
-        <ul class="list">
-          <li>School students</li>
-          <li>College students</li>
-          <li>Beginners in tech</li>
-        </ul>
-      </div>
+  <footer>
+    <span>© <span id="year"></span> Solenoid Security Pvt Ltd. All rights reserved.</span>
+    <span>
+      For internship-related queries, please contact us using the details you share in the application form.
+    </span>
+  </footer>
 
-      <div class="card">
-        <h3>How It Works</h3>
-        <ul class="list">
-          <li>Select track</li>
-          <li>Apply using form</li>
-          <li>Join internship</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+  <script>
+    // Set current year
+    document.getElementById("year").textContent = new Date().getFullYear();
 
+    // Scroll-based reveal animations
+    const faders = document.querySelectorAll(".fade-in");
+    const heroVisual = document.getElementById("heroVisual");
 
-  <!-- TRACKS -->
-  <section id="tracks">
-    <h2>Internship Tracks</h2>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
 
-    <div class="grid grid-3">
-      <div class="card">
-        <h3>Website Development</h3>
-        <ul class="list">
-          <li>HTML, CSS, JS</li>
-          <li>Responsive Design</li>
-          <li>Landing Pages</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Cyber Security</h3>
-        <ul class="list">
-          <li>Networking Basics</li>
-          <li>Linux Basics</li>
-          <li>Security Tools</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Beginner Friendly</h3>
-        <ul class="list">
-          <li>Step-by-step</li>
-          <li>No prior experience</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ELIGIBILITY -->
-  <section id="eligibility">
-    <h2>Eligibility Criteria</h2>
-
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Requirements</h3>
-        <ul class="list">
-          <li>Student of any stream</li>
-          <li>Basic computer knowledge</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Internship Details</h3>
-        <ul class="list">
-          <li>1-Month Duration</li>
-          <li>Online / Remote</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- APPLY -->
-  <section id="apply">
-    <h2>Apply Now</h2>
-    <p class="apply-text">
-      Click below to apply for the internship.
-    </p>
-
-    <a class="btn-primary" target="_blank"
-       href="https://docs.google.com/forms/d/e/1FAIpQLScdK8F6QXVZiRWk2ktCISvEvT0FxqmSBiPc-rog46JGCNLfdg/viewform">
-      Apply Here
-    </a>
-  </section>
-
+    faders.forEach((el) => observer.observe(el));
+    if (heroVisual) observer.observe(heroVisual);
+  </script>
 </body>
 </html>
